@@ -1,77 +1,63 @@
-{"top":"global.ShiftRegister(width=True,has_enable=False,has_reset=False)",
+{"top":"global.ShiftRegister(width=8, has_enable=True, has_reset=False)",
 "namespaces":{
   "global":{
     "modules":{
-      "DFF(init=0, has_ce=False, has_reset=False, has_set=False)":{
+      "DFF(init=0, has_ce=True, has_reset=False, has_set=False)":{
         "type":["Record",{
           "I":"BitIn",
           "O":"Bit",
-          "CLK":["Named","coreir.clkIn"]
+          "CLK":["Named","coreir.clkIn"],
+          "CE":"BitIn"
         }],
         "instances":{
           "inst0":{
             "genref":"coreir.bitreg",
-            "genargs":{"clr":false, "en":false, "rst":false},
+            "genargs":{"clr":false, "en":true, "rst":false},
             "configargs":{"init":0}
           }
         },
         "connections":[
           ["self.O","inst0.out"],
           ["self.I","inst0.in"],
-          ["self.CLK","inst0.clk"]
+          ["self.CLK","inst0.clk"],
+          ["self.CE","inst0.en"]
         ]
       },
-      "Register(n=True, init=0, has_ce=False, has_reset=False)":{
+      "ShiftRegister(width=8, has_enable=True, has_reset=False)":{
         "type":["Record",{
-          "I":["Array",1,"BitIn"],
-          "O":["Array",1,"Bit"],
-          "CLK":["Named","coreir.clkIn"]
+          "I":"BitIn",
+          "O":"Bit",
+          "CLK":["Named","coreir.clkIn"],
+          "CE":"BitIn"
         }],
         "instances":{
           "inst0":{
-            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
-          }
-        },
-        "connections":[
-          ["self.O.0","inst0.O"],
-          ["self.I.0","inst0.I"],
-          ["self.CLK","inst0.CLK"]
-        ]
-      },
-      "ShiftRegister(width=True,has_enable=False,has_reset=False)":{
-        "type":["Record",{
-          "I":["Array",1,"BitIn"],
-          "O":["Array",1,"Bit"],
-          "CLK":["Named","coreir.clkIn"]
-        }],
-        "instances":{
-          "inst0":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst1":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst2":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst3":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst4":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst5":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst6":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           },
           "inst7":{
-            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
+            "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
           }
         },
         "connections":[
-          ["self.O","inst0.O"],
+          ["self.O","inst7.O"],
           ["self.I","inst0.I"],
           ["self.CLK","inst7.CLK"],
           ["self.CLK","inst6.CLK"],
@@ -81,6 +67,14 @@
           ["self.CLK","inst2.CLK"],
           ["self.CLK","inst1.CLK"],
           ["self.CLK","inst0.CLK"],
+          ["self.CE","inst7.CE"],
+          ["self.CE","inst6.CE"],
+          ["self.CE","inst5.CE"],
+          ["self.CE","inst4.CE"],
+          ["self.CE","inst3.CE"],
+          ["self.CE","inst2.CE"],
+          ["self.CE","inst1.CE"],
+          ["self.CE","inst0.CE"],
           ["inst7.I","inst6.O"],
           ["inst6.I","inst5.O"],
           ["inst5.I","inst4.O"],
