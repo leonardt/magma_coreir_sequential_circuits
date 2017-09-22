@@ -21,7 +21,7 @@
           ["self.CLK","inst0.clk"]
         ]
       },
-      "RegisterTrue":{
+      "Register(n=True, init=0, has_ce=False, has_reset=False)":{
         "type":["Record",{
           "I":["Array",1,"BitIn"],
           "O":["Array",1,"Bit"],
@@ -46,28 +46,28 @@
         }],
         "instances":{
           "inst0":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst1":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst2":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst3":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst4":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst5":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst6":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           },
           "inst7":{
-            "modref":"global.RegisterTrue"
+            "modref":"global.Register(n=True, init=0, has_ce=False, has_reset=False)"
           }
         },
         "connections":[

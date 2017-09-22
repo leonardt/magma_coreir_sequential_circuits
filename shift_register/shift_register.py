@@ -16,16 +16,12 @@ def FFs(n, init=0, has_ce=False, has_reset=False):
 
 
 ## Register module name
-def _RegisterName(name, n, init, ce, r):
-    name += str(n)
-    if ce: name += 'CE'
-    if r:  name += 'R'
-
+def _RegisterName(n, init, ce, r):
     if isinstance(init, Sequence):
          init = seq2int(init)
-    if init is not 0: name += "_%04X" % init
-
-    return name
+    if init is not 0:
+        init = "_%04X" % init
+    return 'Register(n={}, init={}, has_ce={}, has_reset={})'.format(n, init, ce, r)
 
 
 @cache_definition
@@ -45,7 +41,7 @@ def DefineRegister(n, init=0, has_ce=False, has_reset=False, _type=Bits):
         raise ValueError("Argument _type must be Bits, UInt, or SInt")
     T = _type(n)
     class _Register(Circuit):
-        name = _RegisterName('Register', n, init, has_ce, has_reset)
+        name = _RegisterName(n, init, has_ce, has_reset)
         IO  = ['I', In(T), 'O', Out(T)] + ClockInterface(has_ce,has_reset)
         @classmethod
         def definition(reg):
