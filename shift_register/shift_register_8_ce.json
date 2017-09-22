@@ -2,7 +2,7 @@
 "namespaces":{
   "global":{
     "modules":{
-      "DFF(init=0,has_ce=False, has_reset=False,has_set=False)":{
+      "DFF(init=0, has_ce=False, has_reset=False, has_set=False)":{
         "type":["Record",{
           "I":"BitIn",
           "O":"Bit",
@@ -29,7 +29,7 @@
         }],
         "instances":{
           "inst0":{
-            "modref":"global.DFF(init=0,has_ce=False, has_reset=False,has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           }
         },
         "connections":[
