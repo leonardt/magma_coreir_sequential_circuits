@@ -1,0 +1,138 @@
+{"top":"global.LFSR(n=8, init=1, has_ce=False)",
+"namespaces":{
+  "global":{
+    "modules":{
+      "DFF(init=1, has_ce=False, has_reset=False, has_set=False)":{
+        "type":["Record",{
+          "I":"BitIn",
+          "O":"Bit",
+          "CLK":["Named","coreir.clkIn"]
+        }],
+        "instances":{
+          "inst0":{
+            "genref":"coreir.bitreg",
+            "genargs":{"clr":false, "en":false, "rst":false},
+            "configargs":{"init":1}
+          }
+        },
+        "connections":[
+          ["self.O","inst0.out"],
+          ["self.I","inst0.in"],
+          ["self.CLK","inst0.clk"]
+        ]
+      },
+      "LFSR(n=8, init=1, has_ce=False)":{
+        "type":["Record",{
+          "O":["Array",8,"Bit"],
+          "CLK":["Named","coreir.clkIn"]
+        }],
+        "instances":{
+          "inst0":{
+            "modref":"global.SIPO(n=8, init=1, has_ce=False, has_reset=False)"
+          },
+          "inst1":{
+            "modref":"global.fold_xor4None"
+          }
+        },
+        "connections":[
+          ["inst0.O.7","inst1.in0"],
+          ["inst0.O.5","inst1.in1"],
+          ["inst0.O.4","inst1.in2"],
+          ["inst0.O.3","inst1.in3"],
+          ["self.O","inst0.O"],
+          ["self.CLK","inst0.CLK"],
+          ["inst1.out","inst0.I"]
+        ]
+      },
+      "SIPO(n=8, init=1, has_ce=False, has_reset=False)":{
+        "type":["Record",{
+          "I":"BitIn",
+          "O":["Array",8,"Bit"],
+          "CLK":["Named","coreir.clkIn"]
+        }],
+        "instances":{
+          "inst0":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst1":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst2":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst3":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst4":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst5":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst6":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          },
+          "inst7":{
+            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+          }
+        },
+        "connections":[
+          ["self.O.7","inst7.O"],
+          ["self.O.6","inst6.O"],
+          ["self.O.5","inst5.O"],
+          ["self.O.4","inst4.O"],
+          ["self.O.3","inst3.O"],
+          ["self.O.2","inst2.O"],
+          ["self.O.1","inst1.O"],
+          ["self.O.0","inst0.O"],
+          ["self.I","inst0.I"],
+          ["self.CLK","inst7.CLK"],
+          ["self.CLK","inst6.CLK"],
+          ["self.CLK","inst5.CLK"],
+          ["self.CLK","inst4.CLK"],
+          ["self.CLK","inst3.CLK"],
+          ["self.CLK","inst2.CLK"],
+          ["self.CLK","inst1.CLK"],
+          ["self.CLK","inst0.CLK"],
+          ["inst7.I","inst6.O"],
+          ["inst6.I","inst5.O"],
+          ["inst5.I","inst4.O"],
+          ["inst4.I","inst3.O"],
+          ["inst3.I","inst2.O"],
+          ["inst2.I","inst1.O"],
+          ["inst1.I","inst0.O"]
+        ]
+      },
+      "fold_xor4None":{
+        "type":["Record",{
+          "in0":"BitIn",
+          "in1":"BitIn",
+          "in2":"BitIn",
+          "in3":"BitIn",
+          "out":"Bit"
+        }],
+        "instances":{
+          "inst0":{
+            "modref":"coreir.bitxor"
+          },
+          "inst1":{
+            "modref":"coreir.bitxor"
+          },
+          "inst2":{
+            "modref":"coreir.bitxor"
+          }
+        },
+        "connections":[
+          ["self.out","inst2.out"],
+          ["self.in3","inst2.in1"],
+          ["self.in2","inst1.in1"],
+          ["self.in1","inst0.in1"],
+          ["self.in0","inst0.in0"],
+          ["inst2.in0","inst1.out"],
+          ["inst1.in0","inst0.out"]
+        ]
+      }
+    }
+  }
+}
+}
