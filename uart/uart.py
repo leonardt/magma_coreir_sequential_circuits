@@ -1,5 +1,6 @@
 from magma import *
-from mantle.coreir.logic import EQ, Not
+from mantle.coreir.logic import Not, And, Or
+from mantle.coreir.compare import EQ
 from mantle.coreir.arith import Add
 from mantle.coreir.FF import FF
 
@@ -198,7 +199,7 @@ def DefineCounterModM(m, n, cin=False, cout=True, incr=1, next=False,
 
     counter = Counter(n, cin=cin, cout=cout, incr=incr, next=next,
                    has_ce=has_ce, has_reset=True)
-    reset = EQ(2, n)(counter.O, bits(m, n=n))
+    reset = EQ(n)(counter.O, bits(m, n=n))
 
     if has_ce:
         CE = In(Bit)()
@@ -239,7 +240,7 @@ clock = CounterModM(103, 8)
 baud = clock.COUT
 
 count = Counter(4, has_ce=True, has_reset=True)
-done = EQ(2, 4)(count.O, bits(15, n=4))
+done = EQ(4)(count.O, bits(15, n=4))
 
 run = FF(has_ce=True)
 # run_n = LUT3([0,0,1,0, 1,0,1,0])

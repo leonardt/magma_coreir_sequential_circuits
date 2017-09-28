@@ -103,24 +103,23 @@
             "modref":"global.Counter8R"
           },
           "inst1":{
-            "genref":"coreir.eq",
-            "genargs":{"width":8}
+            "modref":"global.EQ8"
           }
         },
         "connections":[
-          ["inst1.in1.7","bit_const_GND.out"],
-          ["inst1.in1.6","bit_const_VCC.out"],
-          ["inst1.in1.5","bit_const_VCC.out"],
-          ["inst1.in1.4","bit_const_GND.out"],
-          ["inst1.in1.3","bit_const_GND.out"],
-          ["inst1.in1.2","bit_const_VCC.out"],
-          ["inst1.in1.1","bit_const_VCC.out"],
-          ["inst1.in1.0","bit_const_VCC.out"],
+          ["inst1.I1.7","bit_const_GND.out"],
+          ["inst1.I1.6","bit_const_VCC.out"],
+          ["inst1.I1.5","bit_const_VCC.out"],
+          ["inst1.I1.4","bit_const_GND.out"],
+          ["inst1.I1.3","bit_const_GND.out"],
+          ["inst1.I1.2","bit_const_VCC.out"],
+          ["inst1.I1.1","bit_const_VCC.out"],
+          ["inst1.I1.0","bit_const_VCC.out"],
           ["self.O","inst0.O"],
-          ["self.COUT","inst1.out"],
+          ["self.COUT","inst1.O"],
           ["self.CLK","inst0.CLK"],
-          ["inst1.out","inst0.RESET"],
-          ["inst1.in0","inst0.O"]
+          ["inst1.O","inst0.RESET"],
+          ["inst1.I0","inst0.O"]
         ]
       },
       "Counter4CER":{
@@ -264,6 +263,42 @@
           ["self.I","inst0.in"],
           ["self.CLK","inst0.clk"],
           ["self.CE","inst0.en"]
+        ]
+      },
+      "EQ4":{
+        "type":["Record",{
+          "I0":["Array",4,"BitIn"],
+          "I1":["Array",4,"BitIn"],
+          "O":"Bit"
+        }],
+        "instances":{
+          "inst0":{
+            "genref":"coreir.eq",
+            "genargs":{"width":4}
+          }
+        },
+        "connections":[
+          ["self.O","inst0.out"],
+          ["self.I1","inst0.in1"],
+          ["self.I0","inst0.in0"]
+        ]
+      },
+      "EQ8":{
+        "type":["Record",{
+          "I0":["Array",8,"BitIn"],
+          "I1":["Array",8,"BitIn"],
+          "O":"Bit"
+        }],
+        "instances":{
+          "inst0":{
+            "genref":"coreir.eq",
+            "genargs":{"width":8}
+          }
+        },
+        "connections":[
+          ["self.O","inst0.out"],
+          ["self.I1","inst0.in1"],
+          ["self.I0","inst0.in0"]
         ]
       },
       "PISO9CE":{
@@ -573,8 +608,7 @@
             "modref":"coreir.bitnot"
           },
           "inst2":{
-            "genref":"coreir.eq",
-            "genargs":{"width":4}
+            "modref":"global.EQ4"
           },
           "inst3":{
             "modref":"global.DFF(init=0, has_ce=True, has_reset=False, has_set=False)"
@@ -608,10 +642,10 @@
           ["self.data.1","inst9.PI.1"],
           ["self.data.0","inst9.PI.0"],
           ["inst9.PI.8","bit_const_GND.out"],
-          ["inst2.in1.3","bit_const_VCC.out"],
-          ["inst2.in1.2","bit_const_VCC.out"],
-          ["inst2.in1.1","bit_const_VCC.out"],
-          ["inst2.in1.0","bit_const_VCC.out"],
+          ["inst2.I1.3","bit_const_VCC.out"],
+          ["inst2.I1.2","bit_const_VCC.out"],
+          ["inst2.I1.1","bit_const_VCC.out"],
+          ["inst2.I1.0","bit_const_VCC.out"],
           ["self.valid","inst5.in1"],
           ["self.valid","inst10.in0"],
           ["self.tx","inst9.O"],
@@ -626,16 +660,16 @@
           ["inst8.out","inst7.in1"],
           ["inst8.in","inst3.O"],
           ["inst7.out","inst1.RESET"],
-          ["inst7.in0","inst2.out"],
+          ["inst7.in0","inst2.O"],
           ["inst6.out","inst4.in1"],
-          ["inst6.in","inst2.out"],
+          ["inst6.in","inst2.O"],
           ["inst5.out","inst4.in0"],
           ["inst5.in0","inst3.O"],
           ["inst4.out","inst3.I"],
           ["inst3.O","inst13.in"],
           ["inst3.O","inst11.in"],
           ["inst3.CE","inst0.COUT"],
-          ["inst2.in0","inst1.O"],
+          ["inst2.I0","inst1.O"],
           ["inst13.out","inst12.in0"],
           ["inst12.in1","inst0.COUT"],
           ["inst11.out","inst10.in1"],
