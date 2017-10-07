@@ -1,7 +1,26 @@
-{"top":"global.LFSR(n=8, init=1, has_ce=False)",
+{"top":"global.LFSR_n8_init1_has_ceFalse",
 "namespaces":{
   "global":{
     "modules":{
+      "DFF(init=0, has_ce=False, has_reset=False, has_set=False)":{
+        "type":["Record",{
+          "I":"BitIn",
+          "O":"Bit",
+          "CLK":["Named","coreir.clkIn"]
+        }],
+        "instances":{
+          "inst0":{
+            "genref":"coreir.bitreg",
+            "genargs":{"clr":false, "en":false, "rst":false},
+            "configargs":{"init":0}
+          }
+        },
+        "connections":[
+          ["self.O","inst0.out"],
+          ["self.I","inst0.in"],
+          ["self.CLK","inst0.clk"]
+        ]
+      },
       "DFF(init=1, has_ce=False, has_reset=False, has_set=False)":{
         "type":["Record",{
           "I":"BitIn",
@@ -21,30 +40,30 @@
           ["self.CLK","inst0.clk"]
         ]
       },
-      "LFSR(n=8, init=1, has_ce=False)":{
+      "LFSR_n8_init1_has_ceFalse":{
         "type":["Record",{
           "O":["Array",8,"Bit"],
           "CLK":["Named","coreir.clkIn"]
         }],
         "instances":{
           "inst0":{
-            "modref":"global.SIPO(n=8, init=1, has_ce=False, has_reset=False)"
+            "modref":"global.SIPO8_0001"
           },
           "inst1":{
             "modref":"global.fold_xor4None"
           }
         },
         "connections":[
-          ["inst0.O.7","inst1.in0"],
-          ["inst0.O.5","inst1.in1"],
-          ["inst0.O.4","inst1.in2"],
-          ["inst0.O.3","inst1.in3"],
+          ["inst0.O.7","inst1.I0"],
+          ["inst0.O.5","inst1.I1"],
+          ["inst0.O.4","inst1.I2"],
+          ["inst0.O.3","inst1.I3"],
           ["self.O","inst0.O"],
           ["self.CLK","inst0.CLK"],
-          ["inst1.out","inst0.I"]
+          ["inst1.O","inst0.I"]
         ]
       },
-      "SIPO(n=8, init=1, has_ce=False, has_reset=False)":{
+      "SIPO8_0001":{
         "type":["Record",{
           "I":"BitIn",
           "O":["Array",8,"Bit"],
@@ -55,25 +74,25 @@
             "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst1":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst2":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst3":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst4":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst5":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst6":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           },
           "inst7":{
-            "modref":"global.DFF(init=1, has_ce=False, has_reset=False, has_set=False)"
+            "modref":"global.DFF(init=0, has_ce=False, has_reset=False, has_set=False)"
           }
         },
         "connections":[
@@ -103,33 +122,50 @@
           ["inst1.I","inst0.O"]
         ]
       },
-      "fold_xor4None":{
+      "bitxor_wrapped":{
         "type":["Record",{
-          "in0":"BitIn",
-          "in1":"BitIn",
-          "in2":"BitIn",
-          "in3":"BitIn",
-          "out":"Bit"
+          "I0":"BitIn",
+          "I1":"BitIn",
+          "O":"Bit"
         }],
         "instances":{
           "inst0":{
             "modref":"coreir.bitxor"
-          },
-          "inst1":{
-            "modref":"coreir.bitxor"
-          },
-          "inst2":{
-            "modref":"coreir.bitxor"
           }
         },
         "connections":[
-          ["self.out","inst2.out"],
-          ["self.in3","inst2.in1"],
-          ["self.in2","inst1.in1"],
-          ["self.in1","inst0.in1"],
-          ["self.in0","inst0.in0"],
-          ["inst2.in0","inst1.out"],
-          ["inst1.in0","inst0.out"]
+          ["self.O","inst0.out"],
+          ["self.I1","inst0.in1"],
+          ["self.I0","inst0.in0"]
+        ]
+      },
+      "fold_xor4None":{
+        "type":["Record",{
+          "I0":"BitIn",
+          "I1":"BitIn",
+          "I2":"BitIn",
+          "I3":"BitIn",
+          "O":"Bit"
+        }],
+        "instances":{
+          "inst0":{
+            "modref":"global.bitxor_wrapped"
+          },
+          "inst1":{
+            "modref":"global.bitxor_wrapped"
+          },
+          "inst2":{
+            "modref":"global.bitxor_wrapped"
+          }
+        },
+        "connections":[
+          ["self.O","inst2.O"],
+          ["self.I3","inst2.I1"],
+          ["self.I2","inst1.I1"],
+          ["self.I1","inst0.I1"],
+          ["self.I0","inst0.I0"],
+          ["inst2.I0","inst1.O"],
+          ["inst1.I0","inst0.O"]
         ]
       }
     }
